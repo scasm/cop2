@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="laboratorinis:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <module>laboratorinis</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
+    <root id="archive" name="laboratorinis.war">
+      <element id="artifact" artifact-name="laboratorinis:war exploded" />
+    </root>
+  </artifact>
+</component>
