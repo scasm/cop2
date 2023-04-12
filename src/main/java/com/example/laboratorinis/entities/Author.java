@@ -2,18 +2,17 @@ package com.example.laboratorinis.entities;
 
 import lombok.EqualsAndHashCode;
 
-import javax.persistence.Basic;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.List;
-
 @Entity
+@NamedQueries({
+        @NamedQuery(name = "Author.findAll", query = "select t from Author as t")
+})
 @EqualsAndHashCode
 public class Author {
+    @Id
     private Long id;
 
-    @Id
     public Long getId() {
         return id;
     }
@@ -22,9 +21,9 @@ public class Author {
         this.id = id;
     }
 
+    @Basic(optional = false)
     private String name;
 
-    @Basic(optional = false)
     public String getName() {
         return name;
     }
@@ -33,9 +32,9 @@ public class Author {
         this.name = name;
     }
 
+    @Basic(optional = false)
     private String surname;
 
-    @Basic(optional = false)
     public String getSurname() {
         return surname;
     }
@@ -44,9 +43,9 @@ public class Author {
         this.surname = surname;
     }
 
+    @Basic(optional = false)
     private String nationality;
 
-    @Basic(optional = false)
     public String getNationality() {
         return nationality;
     }
@@ -55,9 +54,9 @@ public class Author {
         this.nationality = nationality;
     }
 
+    @OneToMany(mappedBy = "author")
     private List<Song> songs;
 
-    @OneToMany(mappedBy = "author")
     public List<Song> getSongs() {
         return songs;
     }

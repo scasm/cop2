@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<h:head/>
+<h:body>
+   <div style="display:inline-block; width: auto">
+      <h2>All songs:</h2>
+      <ol>
+         <ui:repeat value="#{songsMyBatis.allSongs}" var="song">
+            <li>Song name: #{song.title} Id: #{song.id}</li>
+         </ui:repeat>
+      </ol>
+   </div>
+   <div style="display:inline-block; width: auto">
+      <h2>Playlist songs:</h2>
+      <ol>
+         <ui:repeat value="#{songsMyBatis.playlistSongs}" var="song">
+            <li>Song name: #{song.title} Id: #{song.id}</li>
+         </ui:repeat>
+      </ol>
+      <h:form>
+         <ul>
+            <li>Song Id
+               <h:inputText value="#{songsMyBatis.songToAdd.id}" required="true" />
+            </li>
+         </ul>
+         <h:commandButton value="Add song to playlist" action="#{songsMyBatis.addSongToPlaylist()}" />
+      </h:form>
+
+   </div>
+
+   <br/>
+   <h:link outcome="/index.html" value="Back to authors page"/>
+</h:body>
+</html>

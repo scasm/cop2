@@ -1,5 +1,8 @@
 package com.example.laboratorinis.mybatis.model;
 
+
+import java.util.List;
+
 public class Playlist {
     /**
      *
@@ -98,5 +101,15 @@ public class Playlist {
      */
     public void setName(String name) {
         this.name = name;
+    }
+
+    private List<Song> songs;
+
+    public List<Song> getSongs() {
+        return songs;
+    }
+
+    public void setSongs(List<Song> songs) {
+        this.songs = songs;
     }
 }

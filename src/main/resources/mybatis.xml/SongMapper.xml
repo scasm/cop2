@@ -10,6 +10,8 @@
     <id column="ID" jdbcType="BIGINT" property="id" />
     <result column="TITLE" jdbcType="VARCHAR" property="title" />
     <result column="AUTHOR_ID" jdbcType="BIGINT" property="authorId" />
+    <association property="author" columnPrefix="author_" resultMap="com.example.laboratorinis.mybatis.dao.AuthorMapper.BaseResultMap"/>
+    <collection property="playlists" javaType="ArrayList" ofType="Playlist" column="id" select="selectPlaylistsForSong"/>
   </resultMap>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     <!--
@@ -58,5 +60,11 @@
     -->
     select ID, TITLE, AUTHOR_ID
     from PUBLIC.SONG
+  </select>
+  <select id="selectPlaylistsForSong" resultType="Playlist">
+    SELECT p.id, p.name
+    FROM public.playlist p
+        JOIN public.song_playlist sp on p.id = sp.playlists_id
+    WHERE sp.songs_id = #{id, jdbcType=INTEGER}
   </select>
 </mapper>

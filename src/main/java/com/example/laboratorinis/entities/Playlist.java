@@ -5,17 +5,6 @@ import java.util.List;
 
 @Entity
 public class Playlist {
-    private Long id;
-
-    @GeneratedValue
-    @Id
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     private String name;
 
@@ -48,5 +37,17 @@ public class Playlist {
 
     public void setSongs(List<Song> songs) {
         this.songs = songs;
+    }
+
+    private Long id;
+
+    @GeneratedValue
+    @Id
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }

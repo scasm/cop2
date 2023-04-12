@@ -5,7 +5,56 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
-<f:view>
-    <h:outputLabel value="Hello, world"/>
-</f:view>
+<h:head/>
+<h:body>
+
+    <div style="display:inline-block; width: auto">
+        <h2>Authors:</h2>   <ol>
+        <ui:repeat value="#{authorsMyBatis.allAuthors}" var="author">
+            <li><h:link value="#{author.name}" outcome="songs?authorId=#{author.id}" /></li>
+        </ui:repeat>
+    </ol>
+        <h:form>
+            <ul>
+                <li>id
+                    <h:inputText value="#{authorsMyBatis.authorToCreate.id}" required="true" />
+                </li>
+                <li>name
+                    <h:inputText value="#{authorsMyBatis.authorToCreate.name}" required="true" />
+                </li>
+                <li>surname
+                    <h:inputText value="#{authorsMyBatis.authorToCreate.surname}" required="true" />
+                </li>
+
+                <li>nationality
+                    <h:inputText value="#{authorsMyBatis.authorToCreate.nationality}" required="true" />
+                </li>
+            </ul>
+            <h:commandButton value="Add new author" action="#{authorsMyBatis.createAuthor}" />
+        </h:form>
+    </div>
+    <div style="display:inline-block; width: auto">
+        <h2>Playlists:</h2>   <ol>
+        <ui:repeat value="#{playlistsMyBatis.allPlaylists}" var="playlist">
+            <li><h:link value="#{playlist.name}" outcome="playListSongs?playlistId=#{playlist.id}" /></li>
+        </ui:repeat>
+    </ol>
+        <h:form>
+            <ul>
+                <li>name
+                    <h:inputText value="#{playlistsMyBatis.playlistToCreate.id}" required="true" />
+                </li>
+                <li>name
+                    <h:inputText value="#{playlistsMyBatis.playlistToCreate.name}" required="true" />
+                </li>
+
+                <li>description
+                    <h:inputTextarea value="#{playlistsMyBatis.playlistToCreate.description}" required="false" />
+                </li>
+            </ul>
+            <h:commandButton value="Add new playlist" action="#{playlistsMyBatis.createPlaylist()}" />
+        </h:form>
+    </div>
+
+</h:body>
 </html>

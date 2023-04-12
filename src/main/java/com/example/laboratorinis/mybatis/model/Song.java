@@ -1,5 +1,10 @@
 package com.example.laboratorinis.mybatis.model;
 
+import lombok.Getter;
+import lombok.Setter;
+
+import java.util.List;
+
 public class Song {
     /**
      *
@@ -99,4 +104,15 @@ public class Song {
     public void setAuthorId(Long authorId) {
         this.authorId = authorId;
     }
+
+    private Author author;
+
+    public Author getAuthor(){return author;}
+
+    public void setAuthor() {this.author = author;}
+
+    private List<Playlist> playlists;
+
+    public List<Playlist> getPlaylists() {return playlists;}
+    public void setPlaylists() {this.playlists = playlists;}
 }

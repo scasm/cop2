@@ -1,5 +1,7 @@
 package com.example.laboratorinis.mybatis.model;
 
+import java.util.List;
+
 public class Author {
     /**
      *
@@ -46,6 +48,7 @@ public class Author {
      * @mbg.generated Tue Apr 11 21:21:15 EEST 2023
      */
     public Long getId() {
+        System.out.println("hello");
         return id;
     }
 
@@ -58,7 +61,8 @@ public class Author {
      * @mbg.generated Tue Apr 11 21:21:15 EEST 2023
      */
     public void setId(Long id) {
-        this.id = id;
+        System.out.println("hello from setter");
+        System.out.println(id);this.id = id;
     }
 
     /**
@@ -131,5 +135,16 @@ public class Author {
      */
     public void setSurname(String surname) {
         this.surname = surname;
+    }
+
+
+    private List<Song> songs;
+
+    public List<Song> getSongs() {
+        return songs;
+    }
+
+    public void setSongs(List<Song> songs) {
+        this.songs = songs;
     }
 }
