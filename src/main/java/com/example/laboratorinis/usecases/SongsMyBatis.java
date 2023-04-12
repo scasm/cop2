@@ -15,6 +15,7 @@ import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
 import java.sql.SQLOutput;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -52,13 +53,14 @@ public class SongsMyBatis {
     private void loadAllSongs() {
         this.allSongs = songMapper.selectAll();
     }
-
+    @Transactional
     public String addSongToPlaylist() {
-        System.out.println("HELO");
-        System.out.println(songToAdd.getId());
-        this.songToAdd = songMapper.selectByPrimaryKey(songToAdd.getId());
-        System.out.println(this.songToAdd);
-        this.playlistToAddSong.getSongs().add(this.songToAdd);
+
+        Song newSong = songMapper.selectByPrimaryKey(Long.valueOf(1));
+
+        List<Song> songs = new ArrayList<Song>();
+        songs.add(newSong);
+        this.playlistToAddSong.setSongs(songs);
 
         playlistMapper.updateByPrimaryKey(playlistToAddSong);
 
