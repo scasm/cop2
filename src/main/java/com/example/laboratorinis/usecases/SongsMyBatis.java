@@ -16,27 +16,34 @@ import javax.inject.Inject;
 import javax.transaction.Transactional;
 import java.sql.SQLOutput;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 @Model
 public class SongsMyBatis {
+    @Getter
+    @Setter
+    private Long playlistID;
     @Inject
     private SongMapper songMapper;
 
     @Inject
     private PlaylistMapper playlistMapper;
-    @Getter @Setter
+    @Getter
+    @Setter
     private List<Song> allSongs;
 
-    @Getter @Setter
-    private Song songToAdd;
+    @Getter
+    @Setter
+    private List<Song> songsNotInThisPlaylist;
+    @Getter
+    @Setter
+    private Song songToAdd = new Song();
 
-    @Getter @Setter
-    private Playlist playlistToAddSong;
-
-    @Getter @Setter
-    private List<Song> playlistSongs;
+    @Getter
+    @Setter
+    private Playlist playlist;
 
 
     @PostConstruct
@@ -44,30 +51,28 @@ public class SongsMyBatis {
         this.loadAllSongs();
         Map<String, String> requestParameters =
                 FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
-        System.out.println(requestParameters.get("playlistId"));
-        Long playlistId = Long.parseLong(requestParameters.get("playlistId"));
-        this.playlistSongs = playlistMapper.selectSongsForPlaylist(playlistId);
-        this.playlistToAddSong = playlistMapper.selectByPrimaryKey(playlistId);
+        this.playlistID = Long.parseLong(requestParameters.get("playlistId"));
+        this.playlist = playlistMapper.selectByPrimaryKey(playlistID);
+        this.songsNotInThisPlaylist = songMapper.selectNotInPlaylist(playlistID);
+        if(requestParameters.get("songId") != null) {
+            songToAdd.setId(Long.parseLong(requestParameters.get("songId")));
+        }
+
+
     }
 
     private void loadAllSongs() {
         this.allSongs = songMapper.selectAll();
     }
+
     @Transactional
     public String addSongToPlaylist() {
+        Map<String, Long> params = new HashMap<String, Long>();
+        params.put("songs_id", songToAdd.getId());
+        params.put("playlists_id", playlist.getId());
+        playlistMapper.addSongToPlaylist(params);
 
-        Song newSong = songMapper.selectByPrimaryKey(Long.valueOf(1));
-
-        List<Song> songs = new ArrayList<Song>();
-        songs.add(newSong);
-        this.playlistToAddSong.setSongs(songs);
-
-        playlistMapper.updateByPrimaryKey(playlistToAddSong);
-
-        Map<String, String> requestParameters =
-                FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
-        Long playlistId = Long.parseLong(requestParameters.get("playlistId"));
-        return String.format("/playListSongs?playlistId=%l?faces-redirect=true", playlistId);
+        return String.format("/playListSongs.xhtml?playlistId=%d&faces-redirect=true", playlist.getId());
     }
 
 }

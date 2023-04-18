@@ -4,11 +4,14 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
+@NamedQueries({
+        @NamedQuery(name = "Playlist.findAll", query = "select t from Playlist as t")
+})
 public class Playlist {
 
+    @Basic(optional = false)
     private String name;
 
-    @Basic(optional = false)
     public String getName() {
         return name;
     }
@@ -17,9 +20,9 @@ public class Playlist {
         this.name = name;
     }
 
+    @Basic
     private String description;
 
-    @Basic
     public String getDescription() {
         return description;
     }
@@ -28,9 +31,9 @@ public class Playlist {
         this.description = description;
     }
 
+    @ManyToMany(mappedBy = "playlists")
     private List<Song> songs;
 
-    @ManyToMany(mappedBy = "playlists")
     public List<Song> getSongs() {
         return songs;
     }
@@ -38,11 +41,11 @@ public class Playlist {
     public void setSongs(List<Song> songs) {
         this.songs = songs;
     }
-
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
     private Long id;
 
-    @GeneratedValue
-    @Id
+
     public Long getId() {
         return id;
     }

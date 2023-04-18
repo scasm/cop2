@@ -1,6 +1,7 @@
 package com.example.laboratorinis.mybatis.model;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Playlist {
@@ -103,7 +104,7 @@ public class Playlist {
         this.name = name;
     }
 
-    private List<Song> songs;
+    private List<Song> songs = new ArrayList<>();
 
     public List<Song> getSongs() {
         return songs;

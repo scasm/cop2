@@ -10,6 +10,7 @@ import java.util.List;
 })
 @EqualsAndHashCode
 public class Author {
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     private Long id;
 

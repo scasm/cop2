@@ -61,6 +61,13 @@
     select ID, TITLE, AUTHOR_ID
     from PUBLIC.SONG
   </select>
+  <select id="selectNotInPlaylist" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select ID, TITLE, AUTHOR_ID
+    from PUBLIC.SONG
+    LEFT JOIN PUBLIC.SONG_PLAYLIST ON PUBLIC.SONG.id = PUBLIC.SONG_PLAYLIST.SONGS_ID AND PUBLIC.SONG_PLAYLIST.playlists_id = #{id,jdbcType=BIGINT}
+    where PUBLIC.SONG_PLAYLIST.playlists_id IS NULL
+  </select>
+
   <select id="selectPlaylistsForSong" resultType="Playlist">
     SELECT p.id, p.name
     FROM public.playlist p

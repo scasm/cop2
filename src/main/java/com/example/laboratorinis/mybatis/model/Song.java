@@ -3,6 +3,7 @@ package com.example.laboratorinis.mybatis.model;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Song {
@@ -111,7 +112,7 @@ public class Song {
 
     public void setAuthor() {this.author = author;}
 
-    private List<Playlist> playlists;
+    private List<Playlist> playlists = new ArrayList<>();
 
     public List<Playlist> getPlaylists() {return playlists;}
     public void setPlaylists() {this.playlists = playlists;}

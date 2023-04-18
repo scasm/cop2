@@ -3,6 +3,9 @@ package com.example.laboratorinis.entities;
 import javax.persistence.*;
 import java.util.List;
 
+@NamedQueries({
+        @NamedQuery(name = "Song.findAll", query = "select t from Song as t")
+})
 @Entity
 public class Song {
     private Long id;

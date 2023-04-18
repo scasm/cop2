@@ -1,6 +1,8 @@
 package com.example.laboratorinis.mybatis.dao;
 
 import java.util.List;
+import java.util.Map;
+
 import com.example.laboratorinis.mybatis.model.Playlist;
 import com.example.laboratorinis.mybatis.model.Song;
 import org.mybatis.cdi.Mapper;
@@ -47,4 +49,6 @@ public interface PlaylistMapper {
     int updateByPrimaryKey(Playlist row);
 
     List<Song> selectSongsForPlaylist(Long id);
+
+    int addSongToPlaylist(Map<String, Long> params);
 }

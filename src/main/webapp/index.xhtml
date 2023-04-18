@@ -11,14 +11,11 @@
     <div style="display:inline-block; width: auto">
         <h2>Authors:</h2>   <ol>
         <ui:repeat value="#{authorsMyBatis.allAuthors}" var="author">
-            <li><h:link value="#{author.name}" outcome="songs?authorId=#{author.id}" /></li>
+            <li><h:link value="#{author.name} #{author.surname}" outcome="songs?authorId=#{author.id}" /></li>
         </ui:repeat>
     </ol>
         <h:form>
             <ul>
-                <li>id
-                    <h:inputText value="#{authorsMyBatis.authorToCreate.id}" required="true" />
-                </li>
                 <li>name
                     <h:inputText value="#{authorsMyBatis.authorToCreate.name}" required="true" />
                 </li>
@@ -41,9 +38,6 @@
     </ol>
         <h:form>
             <ul>
-                <li>Id
-                    <h:inputText value="#{playlistsMyBatis.playlistToCreate.id}" required="true" />
-                </li>
                 <li>name
                     <h:inputText value="#{playlistsMyBatis.playlistToCreate.name}" required="true" />
                 </li>

@@ -8,33 +8,32 @@
 
 <h:head/>
 <h:body>
-   <div style="display:inline-block; width: auto">
-      <h2>All songs:</h2>
-      <ol>
-         <ui:repeat value="#{songsMyBatis.allSongs}" var="song">
-            <li>Song name: #{song.title} Id: #{song.id}</li>
-         </ui:repeat>
-      </ol>
-   </div>
-   <div style="display:inline-block; width: auto">
-      <h2>Playlist songs:</h2>
-      <ol>
-         <ui:repeat value="#{songsMyBatis.playlistSongs}" var="song">
-            <li>Song name: #{song.title} Id: #{song.id}</li>
-         </ui:repeat>
-      </ol>
-      <h:form>
-         <ul>
-            <li>Song Id
-               <h:inputText value="#{songsMyBatis.songToAdd.id}" required="true" />
-            </li>
-         </ul>
-         <h:commandButton value="Add song to playlist" action="#{songsMyBatis.addSongToPlaylist()}" />
-      </h:form>
+    <div style="display:inline-block; width: auto">
+        <h2>All songs:</h2>
+        <ul>
+            <ui:repeat value="#{songsMyBatis.songsNotInThisPlaylist}" var="song">
+                <li>Song name: #{song.title}
+                    <h:form>
+                        <h:commandButton value="Add song" action="#{songsMyBatis.addSongToPlaylist()}">
+                            <f:param name="playlistId" value="#{songsMyBatis.playlist.id}"/>
+                            <f:param name="songId" value="#{song.id}"/>
+                        </h:commandButton>
+                    </h:form>
+                </li>
+            </ui:repeat>
+        </ul>
+    </div>
+    <div style="display:inline-block; width: auto">
+        <h2>Playlist songs:</h2>
+        <ol>
+            <ui:repeat value="#{songsMyBatis.playlist.songs}" var="song">
+                <li>Song name: #{song.title}</li>
+            </ui:repeat>
+        </ol>
 
-   </div>
+    </div>
 
-   <br/>
-   <h:link outcome="/index.html" value="Back to authors page"/>
+    <br/>
+    <h:link outcome="/index.html" value="Back to authors page"/>
 </h:body>
 </html>
