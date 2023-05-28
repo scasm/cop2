@@ -48,7 +48,6 @@ public class Author {
      * @mbg.generated Tue Apr 11 21:21:15 EEST 2023
      */
     public Long getId() {
-        System.out.println("hello");
         return id;
     }
 
@@ -61,8 +60,7 @@ public class Author {
      * @mbg.generated Tue Apr 11 21:21:15 EEST 2023
      */
     public void setId(Long id) {
-        System.out.println("hello from setter");
-        System.out.println(id);this.id = id;
+        this.id = id;
     }
 
     /**

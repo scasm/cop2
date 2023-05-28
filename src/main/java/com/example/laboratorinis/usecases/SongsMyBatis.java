@@ -1,9 +1,11 @@
 package com.example.laboratorinis.usecases;
 
+import com.example.laboratorinis.interceptors.LoggedInvocation;
 import com.example.laboratorinis.mybatis.dao.PlaylistMapper;
 import com.example.laboratorinis.mybatis.dao.SongMapper;
-import com.example.laboratorinis.mybatis.model.Playlist;
+import com.example.laboratorinis.entities.Playlist;
 import com.example.laboratorinis.mybatis.model.Song;
+import com.example.laboratorinis.persistence.PlaylistsDAO;
 import lombok.Getter;
 import lombok.Setter;
 import com.example.laboratorinis.mybatis.dao.AuthorMapper;
@@ -13,6 +15,7 @@ import javax.annotation.PostConstruct;
 import javax.enterprise.inject.Model;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
+import javax.persistence.OptimisticLockException;
 import javax.transaction.Transactional;
 import java.sql.SQLOutput;
 import java.util.ArrayList;
@@ -45,6 +48,13 @@ public class SongsMyBatis {
     @Setter
     private Playlist playlist;
 
+    @Getter
+    @Setter
+    private List<Song> songsInThisPlaylist;
+
+    @Inject
+    private PlaylistsDAO playlistsDAO;
+
 
     @PostConstruct
     public void init() {
@@ -52,7 +62,8 @@ public class SongsMyBatis {
         Map<String, String> requestParameters =
                 FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
         this.playlistID = Long.parseLong(requestParameters.get("playlistId"));
-        this.playlist = playlistMapper.selectByPrimaryKey(playlistID);
+        this.playlist = playlistsDAO.findOne(playlistID);
+        this.songsInThisPlaylist = songMapper.selectSongsInPlaylist(playlistID);
         this.songsNotInThisPlaylist = songMapper.selectNotInPlaylist(playlistID);
         if(requestParameters.get("songId") != null) {
             songToAdd.setId(Long.parseLong(requestParameters.get("songId")));
@@ -74,5 +85,7 @@ public class SongsMyBatis {
 
         return String.format("/playListSongs.xhtml?playlistId=%d&faces-redirect=true", playlist.getId());
     }
+
+
 
 }

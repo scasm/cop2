@@ -8,7 +8,18 @@ import java.util.List;
         @NamedQuery(name = "Playlist.findAll", query = "select t from Playlist as t")
 })
 public class Playlist {
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    private Long id;
 
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
     @Basic(optional = false)
     private String name;
 
@@ -41,16 +52,17 @@ public class Playlist {
     public void setSongs(List<Song> songs) {
         this.songs = songs;
     }
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Id
-    private Long id;
 
 
-    public Long getId() {
-        return id;
+    @Version
+    @Column(name = "OPT_LOCK_VERSION")
+    private Integer version;
+
+    public Integer getVersion() {
+        return version;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setVersion(Integer version) {
+        this.version = version;
     }
 }

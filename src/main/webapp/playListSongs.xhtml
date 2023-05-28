@@ -4,15 +4,31 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
 
 <h:head/>
 <h:body>
+    <div>
+        <h3>Playlist: #{updatePlaylistDescription.playlist.name}</h3>
+        <h:form>
+            <h:outputText value="description: "/>
+            <br/>
+            <h:inputTextarea rows="10" cols="50" a:placeholder="enter the value" value="#{updatePlaylistDescription.playlist.description}" required="true" />
+            <br/>
+            <h:commandButton value="update" action="#{updatePlaylistDescription.update()}">
+                <f:param name="playlistId" value="#{updatePlaylistDescription.playlist.id}" />
+            </h:commandButton>
+            <h:outputText style="color: red" value="Value was already modified by other user. If you want to override it - try again" rendered="#{param['error'] == 'optimistic-lock-exception'}" />
+        </h:form>
+
+
+    </div>
     <div style="display:inline-block; width: auto">
         <h2>All songs:</h2>
         <ul>
             <ui:repeat value="#{songsMyBatis.songsNotInThisPlaylist}" var="song">
-                <li>Song name: #{song.title}
+                <li>Song name: #{song.title} (#{song.playlists.size()})
                     <h:form>
                         <h:commandButton value="Add song" action="#{songsMyBatis.addSongToPlaylist()}">
                             <f:param name="playlistId" value="#{songsMyBatis.playlist.id}"/>
@@ -26,8 +42,8 @@
     <div style="display:inline-block; width: auto">
         <h2>Playlist songs:</h2>
         <ol>
-            <ui:repeat value="#{songsMyBatis.playlist.songs}" var="song">
-                <li>Song name: #{song.title}</li>
+            <ui:repeat value="#{songsMyBatis.songsInThisPlaylist}" var="song">
+                <li>Song name: #{song.title} (#{song.playlists.size()})</li>
             </ui:repeat>
         </ol>
 

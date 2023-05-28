@@ -49,7 +49,7 @@ public interface SongMapper {
     int updateByPrimaryKey(Song row);
 
     List<Song> selectNotInPlaylist(Long id);
-
+    List<Song> selectSongsInPlaylist(Long id);
 
     List<Playlist> selectPlaylistsForSong(Long id);
 }

@@ -22,6 +22,7 @@
         </table>
         <table schema="public" tableName="playlist">
             <generatedKey column="id" identity="true" sqlStatement="JDBC" />
+            <ignoreColumn column="opt_lock_version"/>
         </table>
         <table schema="public" tableName="song">
             <generatedKey column="id" identity="true" sqlStatement="JDBC" />

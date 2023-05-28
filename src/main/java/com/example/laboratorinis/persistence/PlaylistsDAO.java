@@ -29,4 +29,9 @@ public class PlaylistsDAO {
     public Playlist findOne(Long id) {
         return em.find(Playlist.class, id);
     }
+
+
+    public Playlist update(Playlist playlist){
+        return em.merge(playlist);
+    }
 }
