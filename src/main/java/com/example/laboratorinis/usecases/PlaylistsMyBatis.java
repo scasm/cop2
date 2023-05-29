@@ -1,8 +1,7 @@
 package com.example.laboratorinis.usecases;
 
-import com.example.laboratorinis.mybatis.dao.AuthorMapper;
-import com.example.laboratorinis.mybatis.dao.PlaylistMapper;
-import com.example.laboratorinis.mybatis.model.Author;
+import com.example.laboratorinis.interceptors.LoggedInvocation;
+import com.example.laboratorinis.services.PlaylistService;
 import com.example.laboratorinis.mybatis.model.Playlist;
 import lombok.Getter;
 import lombok.Setter;
@@ -16,7 +15,7 @@ import java.util.List;
 @Model
 public class PlaylistsMyBatis {
     @Inject
-    private PlaylistMapper playlistMapper;
+    private PlaylistService playlistService;
 
     @Getter
     private List<Playlist> allPlaylists;
@@ -32,12 +31,13 @@ public class PlaylistsMyBatis {
     }
 
     private void loadAllPlaylists() {
-        this.allPlaylists = playlistMapper.selectAll();
+        this.allPlaylists = playlistService.selectAllPlaylists();
     }
 
     @Transactional
+    @LoggedInvocation
     public String createPlaylist() {
-        playlistMapper.insert(playlistToCreate);
+        playlistService.createPlaylist(playlistToCreate);
         return "/index?faces-redirect=true";
     }
 
