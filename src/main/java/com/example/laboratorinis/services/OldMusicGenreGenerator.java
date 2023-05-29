@@ -37,6 +37,6 @@ public class OldMusicGenreGenerator implements GenreGenerator, Serializable {
         System.out.println("OldMusicGenreGenerator");
         int generateRandomNumber = new Random().nextInt(genres.length);
         System.out.println(generateRandomNumber);
-        return genres[generateRandomNumber - 1];
+        return genres[generateRandomNumber];
     }
 }

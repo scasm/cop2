@@ -12,11 +12,13 @@ import com.example.laboratorinis.mybatis.dao.AuthorMapper;
 import com.example.laboratorinis.mybatis.model.Author;
 
 import javax.annotation.PostConstruct;
+import javax.enterprise.context.SessionScoped;
 import javax.enterprise.inject.Model;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.persistence.OptimisticLockException;
 import javax.transaction.Transactional;
+import java.io.Serializable;
 import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -24,7 +26,8 @@ import java.util.List;
 import java.util.Map;
 
 @Model
-public class SongsMyBatis {
+@SessionScoped
+public class SongsMyBatis implements Serializable {
     @Getter
     @Setter
     private Long playlistID;
