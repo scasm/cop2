@@ -77,6 +77,7 @@ public class SongsMyBatis {
     }
 
     @Transactional
+    @LoggedInvocation
     public String addSongToPlaylist() {
         Map<String, Long> params = new HashMap<String, Long>();
         params.put("songs_id", songToAdd.getId());

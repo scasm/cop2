@@ -15,9 +15,17 @@
     </ol>
     <h:form>
         <h:inputText a:placeholder="name" value="#{songsForAuthor.songToCreate.title}" required="true" />
+        <h:inputText a:placeholder="genre" value="#{songsForAuthor.songToCreate.genre}" required="false" />
         <h:commandButton value="Add song to the author"
                          actionListener="#{songsForAuthor.createSong}"
                          action="#{'songs?faces-redirect=true&amp;authorId='.concat(songsForAuthor.author.id)}">
+            <f:param name="authorId" value="#{songsForAuthor.author.id}" />
+        </h:commandButton>
+    </h:form>
+
+    <h:form>
+        <h:outputText value="#{generateSongGenre.genreGenerationStatus}"/>
+        <h:commandButton value="Generate possible genre?" disabled="#{generateSongGenre.genreGenerationRunning}" action="#{generateSongGenre.generateNewGenre()}">
             <f:param name="authorId" value="#{songsForAuthor.author.id}" />
         </h:commandButton>
     </h:form>

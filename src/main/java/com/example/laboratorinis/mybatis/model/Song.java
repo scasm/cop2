@@ -116,4 +116,14 @@ public class Song {
 
     public List<Playlist> getPlaylists() {return playlists;}
     public void setPlaylists() {this.playlists = playlists;}
+
+    private String genre;
+
+    public String getGenre() {
+        return genre;
+    }
+
+    public void setGenre(String genre) {
+        this.genre = genre;
+    }
 }

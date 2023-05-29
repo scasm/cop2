@@ -1,5 +1,6 @@
 package com.example.laboratorinis.usecases;
 
+import com.example.laboratorinis.interceptors.LoggedInvocation;
 import lombok.Getter;
 import lombok.Setter;
 import com.example.laboratorinis.mybatis.dao.AuthorMapper;
@@ -32,6 +33,7 @@ public class AuthorsMyBatis {
     }
 
     @Transactional
+    @LoggedInvocation
     public String createAuthor() {
         authorMapper.insert(authorToCreate);
         return "/index?faces-redirect=true";

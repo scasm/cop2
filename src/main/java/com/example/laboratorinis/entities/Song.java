@@ -31,6 +31,12 @@ public class Song {
         this.title = title;
     }
 
+    private String genre;
+
+    @Basic
+    public String getGenre() {return genre;}
+
+    public void setGenre(String genre) {this.genre = genre;}
     private Author author;
 
     @ManyToOne(optional = false)
