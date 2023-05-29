@@ -28,7 +28,6 @@ public class UpdatePlaylistDescription implements Serializable {
 
     @PostConstruct
     private void init() {
-        System.out.println("initas");
         Map<String, String> requestParameters =
                 FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
         Long playlistID = Long.parseLong(requestParameters.get("playlistId"));
@@ -41,7 +40,7 @@ public class UpdatePlaylistDescription implements Serializable {
         System.out.println(this.playlist.getVersion() + "versija");
         try {
             playlistsDAO.update(this.playlist);
-            System.out.println("updated");
+            System.out.println("Updated !");
         } catch (OptimisticLockException e) {
             System.out.println("Exception !");
             return "/playListSongs.xhtml?faces-redirect=true&playlistId=" + this.playlist.getId() + "&error=optimistic-lock-exception";

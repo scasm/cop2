@@ -29,11 +29,9 @@ public class SendPlaylistReviewService implements Serializable{
 
     @PostConstruct
     public void init() {
-        System.out.println("playlist review init");
         Map<String, String> requestParameters =
                 FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
         Long playlistId = Long.parseLong(requestParameters.get("playlistId"));
-        System.out.println(playlistId);
         this.playlist = playlistsDAO.findOne(playlistId);
     }
 
